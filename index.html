@@ -3,154 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result Portal | Naveen Academy</title>
+    <title>NAVEEN ACADEMY | Result Portal 2026</title>
     <style>
         :root {
-            --primary: #1a2a3a;
-            --secondary: #c0392b;
+            --board-blue: #1e3a8a;
             --gold: #b8860b;
-            --success: #27ae60;
+            --paper: #ffffff;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f4f7f6; color: #333; }
-        
-        /* Header & School Branding */
-        header { background: var(--primary); color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid var(--secondary); }
-        header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
-        header p { margin: 10px 0 0; opacity: 0.9; font-weight: 300; }
-
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
-
-        /* Prize Section */
-        .topper-banner {
-            background: linear-gradient(135deg, #fffef0 0%, #fff9c4 100%);
-            border: 2px solid var(--gold);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
+        body { 
+            font-family: 'Times New Roman', Times, serif; 
+            margin: 0; 
+            background: #e5e7eb; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
         }
-        .topper-banner h2 { color: var(--gold); margin-top: 0; font-size: 22px; }
-        .topper-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .topper-badge { background: white; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; color: var(--gold); }
 
-        /* Search Box */
-        .search-box {
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            border: 2px solid #ddd;
+        /* --- SEARCH PAGE STYLE --- */
+        #search-container {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin-top: 50px;
+            padding: 30px;
             border-radius: 8px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 8px solid var(--board-blue);
         }
-        .search-box:focus { border-color: var(--secondary); }
-
-        /* Table Styling */
-        .table-wrapper { background: white; border-radius: 8px; overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { background: #f8f9fa; padding: 15px; text-align: left; border-bottom: 2px solid #eee; }
-        td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+        .logo-placeholder { font-size: 24px; font-weight: bold; color: var(--board-blue); margin-bottom: 10px; }
+        h2 { margin-bottom: 20px; font-size: 20px; color: #374151; }
         
-        .rank { font-weight: bold; color: var(--primary); }
-        .pass { color: var(--success); font-weight: bold; }
-        .fail { color: var(--secondary); font-weight: bold; }
-        .topper-row { background: #fffdf2 !important; font-weight: 600; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #4b5563; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .btn-search {
+            background: var(--board-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-search:hover { background: #1e40af; }
+        #error-msg { color: #dc2626; margin-top: 15px; font-weight: bold; display: none; }
 
-        @media (max-width: 600px) {
-            header h1 { font-size: 20px; }
-            td, th { padding: 10px; font-size: 14px; }
+        /* --- CERTIFICATE STYLE (Hidden by Default) --- */
+        #result-display { display: none; width: 100%; max-width: 800px; margin: 20px auto; padding-bottom: 50px; }
+        
+        .certificate-card {
+            background: white;
+            padding: 40px;
+            border: 15px solid var(--board-blue);
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.2);
+        }
+        .inner-line { border: 2px solid var(--gold); padding: 20px; position: relative; }
+        
+        .cert-header { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
+        .school-name { font-size: 26px; color: var(--board-blue); font-weight: bold; text-transform: uppercase; margin: 0; }
+        .exam-name { font-size: 16px; color: #c0392b; font-weight: bold; margin-top: 5px; }
+
+        .cert-body { text-align: center; line-height: 1.6; }
+        .student-info { margin: 20px 0; display: grid; grid-template-columns: 1fr 1fr; text-align: left; background: #f9fafb; padding: 15px; }
+        .info-label { font-weight: bold; color: #6b7280; font-size: 14px; }
+        .info-val { font-size: 18px; color: #111827; margin-bottom: 10px; }
+
+        .marks-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .marks-table th, .marks-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        .marks-table th { background: #f3f4f6; }
+
+        .status-stamp {
+            margin: 20px auto;
+            width: 120px;
+            padding: 10px;
+            border: 3px double;
+            font-weight: bold;
+            font-size: 20px;
+            transform: rotate(-5deg);
+        }
+        .pass-stamp { color: green; border-color: green; }
+        .fail-stamp { color: red; border-color: red; }
+
+        .footer-sigs { display: flex; justify-content: space-between; margin-top: 40px; }
+        .sig-box { border-top: 1px solid #333; width: 150px; text-align: center; padding-top: 5px; font-size: 14px; }
+
+        .btn-back { margin-top: 20px; background: #6b7280; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+
+        @media print {
+            #search-container, .btn-back, .btn-search { display: none !important; }
+            body { background: white; }
+            #result-display { display: block !important; margin: 0; padding: 0; }
+            .certificate-card { box-shadow: none; border: 10px solid var(--board-blue); }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>NAVEEN ACADEMY SR SEC SCHOOL, CHOHTAN</h1>
-    <p>MATHEMATICS MEGA TEST RESULT - FEBRUARY 2026</p>
-</header>
+    <div id="search-container">
+        <div class="logo-placeholder">NAVEEN ACADEMY</div>
+        <h2>Examination Result Portal 2026</h2>
+        
+        <div class="input-group">
+            <label>Student Name (Full Name)</label>
+            <input type="text" id="nameInput" placeholder="Enter Name as per school records">
+        </div>
+        
+        <div class="input-group">
+            <label>Roll Number (2601 - 2634)</label>
+            <input type="number" id="rollInput" placeholder="Enter 4-digit Roll No.">
+        </div>
 
-<div class="container">
-    <div class="topper-banner">
-        <h2>🏆 SPECIAL PRIZE RECIPIENTS (45+ Marks)</h2>
-        <div class="topper-list" id="prizeWinners"></div>
+        <button class="btn-search" onclick="findResult()">VIEW MARKSHEET</button>
+        <p id="error-msg">Invalid Details! Please check Name or Roll No.</p>
     </div>
 
-    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search student name here...">
+    <div id="result-display">
+        <div class="certificate-card">
+            <div class="inner-line">
+                <div class="cert-header">
+                    <p class="school-name">Naveen Academy Sr Sec School, Chohtan</p>
+                    <p class="exam-name">MATHEMATICS MEGA TEST FEBRUARY 2026</p>
+                </div>
 
-    <div class="table-wrapper">
-        <table id="resultTable">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Student Name</th>
-                    <th>Marks/50</th>
-                    <th>Percentile</th>
-                    <th>Result</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                </tbody>
-        </table>
+                <div class="cert-body">
+                    <div class="student-info">
+                        <div>
+                            <span class="info-label">Student Name:</span>
+                            <div class="info-val" id="disp-name">---</div>
+                        </div>
+                        <div>
+                            <span class="info-label">Roll Number:</span>
+                            <div class="info-val" id="disp-roll">---</div>
+                        </div>
+                    </div>
+
+                    <table class="marks-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Max Marks</th>
+                                <th>Marks Obtained</th>
+                                <th>Percentile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mathematics</td>
+                                <td>50</td>
+                                <td id="disp-marks" style="font-weight:bold;">---</td>
+                                <td id="disp-perc">---</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="disp-stamp" class="status-stamp">PASS</div>
+
+                    <div class="footer-sigs">
+                        <div class="sig-box">Subject Teacher</div>
+                        <div class="sig-box">Principal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center>
+            <button class="btn-back" onclick="location.reload()">Back to Search</button>
+            <button class="btn-back" style="background:#1e3a8a" onclick="window.print()">Download PDF</button>
+        </center>
     </div>
-</div>
 
-<script>
-    const studentData = [
-        {n: "Aayusg Vishnoi", m: 49, r: 1, p: "97.0%"}, {n: "Gajra", m: 49, r: 1, p: "97.0%"},
-        {n: "Harish", m: 48, r: 3, p: "91.1%"}, {n: "Deepika", m: 48, r: 3, p: "91.1%"},
-        {n: "Pramila", m: 46, r: 5, p: "85.2%"}, {n: "Monika", m: 46, r: 5, p: "85.2%"},
-        {n: "Laxmi", m: 45, r: 7, p: "79.4%"}, {n: "Sneha", m: 44, r: 8, p: "76.4%"},
-        {n: "Bhavna", m: 42, r: 9, p: "70.5%"}, {n: "Ravidra", m: 42, r: 9, p: "70.5%"},
-        {n: "Pukhraj", m: 40, r: 11, p: "67.6%"}, {n: "Arpita", m: 38, r: 12, p: "61.7%"},
-        {n: "Kamlesh Gadhveer", m: 38, r: 12, p: "61.7%"}, {n: "Satypal Vishnoi", m: 37, r: 14, p: "58.8%"},
-        {n: "Govind Suthar", m: 30, r: 15, p: "55.8%"}, {n: "Sapna", m: 28, r: 16, p: "52.9%"},
-        {n: "Natpat Siyol", m: 26, r: 17, p: "50.0%"}, {n: "Manisha", m: 25, r: 18, p: "47.0%"},
-        {n: "Lalchand", m: 23, r: 19, p: "44.1%"}, {n: "Vala Ram", m: 22, r: 20, p: "38.2%"},
-        {n: "Lekhraj", m: 22, r: 20, p: "38.2%"}, {n: "Sangeeta", m: 21, r: 22, p: "32.3%"},
-        {n: "Gaurav S", m: 21, r: 22, p: "32.3%"}, {n: "Imartee", m: 20, r: 24, p: "26.4%"},
-        {n: "Meenakshi", m: 20, r: 24, p: "26.4%"}, {n: "Thakra Ram", m: 17, r: 26, p: "20.5%"},
-        {n: "Anil Kumar", m: 17, r: 26, p: "20.5%"}, {n: "Prakash", m: 13, r: 28, p: "14.7%"},
-        {n: "Seema", m: 13, r: 28, p: "14.7%"}, {n: "Pooja", m: 12, r: 30, p: "11.7%"},
-        {n: "Suman", m: 11, r: 31, p: "8.8%"}, {n: "Archna", m: 10, r: 32, p: "5.8%"},
-        {n: "Roshan Khan", m: 7, r: 33, p: "2.9%"}, {n: "Amrit Suthar", m: 5, r: 34, p: "0.0%"}
-    ];
+    <script>
+        const studentData = [
+            {n: "Aayusg Vishnoi", r: 2601, m: 49, p: "97.0%"}, {n: "Gajra", r: 2602, m: 49, p: "97.0%"},
+            {n: "Harish", r: 2603, m: 48, p: "91.1%"}, {n: "Deepika", r: 2604, m: 48, p: "91.1%"},
+            {n: "Pramila", r: 2605, m: 46, p: "85.2%"}, {n: "Monika", r: 2606, m: 46, p: "85.2%"},
+            {n: "Laxmi", r: 2607, m: 45, p: "79.4%"}, {n: "Sneha", r: 2608, m: 44, p: "76.4%"},
+            {n: "Bhavna", r: 2609, m: 42, p: "70.5%"}, {n: "Ravidra", r: 2610, m: 42, p: "70.5%"},
+            {n: "Pukhraj", r: 2611, m: 40, p: "67.6%"}, {n: "Arpita", r: 2612, m: 38, p: "61.7%"},
+            {n: "Kamlesh Gadhveer", r: 2613, m: 38, p: "61.7%"}, {n: "Satypal Vishnoi", r: 2614, m: 37, p: "58.8%"},
+            {n: "Govind Suthar", r: 2615, m: 30, p: "55.8%"}, {n: "Sapna", r: 2616, m: 28, p: "52.9%"},
+            {n: "Natpat Siyol", r: 2617, m: 26, p: "50.0%"}, {n: "Manisha", r: 2618, m: 25, p: "47.0%"},
+            {n: "Lalchand", r: 2619, m: 23, p: "44.1%"}, {n: "Vala Ram", r: 2620, m: 22, p: "38.2%"},
+            {n: "Lekhraj", r: 2621, m: 22, p: "38.2%"}, {n: "Sangeeta", r: 2622, m: 21, p: "32.3%"},
+            {n: "Gaurav S", r: 2623, m: 21, p: "32.3%"}, {n: "Imartee", r: 2624, m: 20, p: "26.4%"},
+            {n: "Meenakshi", r: 2625, m: 20, p: "26.4%"}, {n: "Thakra Ram", r: 2626, m: 17, p: "20.5%"},
+            {n: "Anil Kumar", r: 2627, m: 17, p: "20.5%"}, {n: "Prakash", r: 2628, m: 13, p: "14.7%"},
+            {n: "Seema", r: 2629, m: 13, p: "14.7%"}, {n: "Pooja", r: 2630, m: 12, p: "11.7%"},
+            {n: "Suman", r: 2631, m: 11, p: "8.8%"}, {n: "Archna", r: 2632, m: 10, p: "5.8%"},
+            {n: "Roshan Khan", r: 2633, m: 7, p: "2.9%"}, {n: "Amrit Suthar", r: 2634, m: 5, p: "0.0%"}
+        ];
 
-    const tableBody = document.getElementById('tableBody');
-    const prizeWinners = document.getElementById('prizeWinners');
+        function findResult() {
+            const name = document.getElementById('nameInput').value.trim().toLowerCase();
+            const roll = document.getElementById('rollInput').value;
+            const error = document.getElementById('error-msg');
 
-    function renderTable(data) {
-        tableBody.innerHTML = '';
-        data.forEach(s => {
-            const isTopper = s.m >= 45;
-            const row = `<tr class="${isTopper ? 'topper-row' : ''}">
-                <td class="rank">#${s.r}</td>
-                <td>${s.n}</td>
-                <td>${s.m}</td>
-                <td>${s.p}</td>
-                <td class="${s.m >= 17 ? 'pass' : 'fail'}">${s.m >= 17 ? 'PASS' : 'REMEDIAL'}</td>
-            </tr>`;
-            tableBody.innerHTML += row;
-        });
-    }
+            const student = studentData.find(s => 
+                (s.n.toLowerCase() === name) || (s.r.toString() === roll)
+            );
 
-    // Initialize Prize List
-    studentData.filter(s => s.m >= 45).forEach(s => {
-        prizeWinners.innerHTML += `<div class="topper-badge">🏅 ${s.n} (${s.m})</div>`;
-    });
-
-    // Search Logic
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-        const val = e.target.value.toLowerCase();
-        const filtered = studentData.filter(s => s.n.toLowerCase().includes(val));
-        renderTable(filtered);
-    });
-
-    // Initial Load
-    renderTable(studentData);
-</script>
-
+            if (student) {
+                error.style.display = 'none';
+                document.getElementById('search-container').style.display = 'none';
+                document.getElementById('result-display').style.display = 'block';
+                
+                // Set Values
+                document.getElementById('disp-name').innerText = student.n;
+                document.getElementById('disp-roll').innerText = student.r;
+                document.getElementById('disp-marks').innerText = student.m;
+                document.getElementById('disp-perc').innerText = student.p;
+                
+                // Set Stamp
+                const stamp = document.getElementById('disp-stamp');
+                if(student.m >= 17) {
+                    stamp.innerText = "PASS";
+                    stamp.className = "status-stamp pass-stamp";
+                } else {
+                    stamp.innerText = "REMEDIAL";
+                    stamp.className = "status-stamp fail-stamp";
+                }
+            } else {
+                error.style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
-
