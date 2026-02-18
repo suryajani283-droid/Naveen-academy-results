@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Portal | Naveen Academy</title>
+    <style>
+        :root {
+            --primary: #1a2a3a;
+            --secondary: #c0392b;
+            --gold: #b8860b;
+            --success: #27ae60;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f4f7f6; color: #333; }
+        
+        /* Header & School Branding */
+        header { background: var(--primary); color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid var(--secondary); }
+        header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
+        header p { margin: 10px 0 0; opacity: 0.9; font-weight: 300; }
+
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+
+        /* Prize Section */
+        .topper-banner {
+            background: linear-gradient(135deg, #fffef0 0%, #fff9c4 100%);
+            border: 2px solid var(--gold);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .topper-banner h2 { color: var(--gold); margin-top: 0; font-size: 22px; }
+        .topper-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .topper-badge { background: white; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; color: var(--gold); }
+
+        /* Search Box */
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border 0.3s;
+        }
+        .search-box:focus { border-color: var(--secondary); }
+
+        /* Table Styling */
+        .table-wrapper { background: white; border-radius: 8px; overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { background: #f8f9fa; padding: 15px; text-align: left; border-bottom: 2px solid #eee; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+        
+        .rank { font-weight: bold; color: var(--primary); }
+        .pass { color: var(--success); font-weight: bold; }
+        .fail { color: var(--secondary); font-weight: bold; }
+        .topper-row { background: #fffdf2 !important; font-weight: 600; }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 20px; }
+            td, th { padding: 10px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>NAVEEN ACADEMY SR SEC SCHOOL, CHOHTAN</h1>
+    <p>MATHEMATICS MEGA TEST RESULT - FEBRUARY 2026</p>
+</header>
+
+<div class="container">
+    <div class="topper-banner">
+        <h2>🏆 SPECIAL PRIZE RECIPIENTS (45+ Marks)</h2>
+        <div class="topper-list" id="prizeWinners"></div>
+    </div>
+
+    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search student name here...">
+
+    <div class="table-wrapper">
+        <table id="resultTable">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Student Name</th>
+                    <th>Marks/50</th>
+                    <th>Percentile</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const studentData = [
+        {n: "Aayusg Vishnoi", m: 49, r: 1, p: "97.0%"}, {n: "Gajra", m: 49, r: 1, p: "97.0%"},
+        {n: "Harish", m: 48, r: 3, p: "91.1%"}, {n: "Deepika", m: 48, r: 3, p: "91.1%"},
+        {n: "Pramila", m: 46, r: 5, p: "85.2%"}, {n: "Monika", m: 46, r: 5, p: "85.2%"},
+        {n: "Laxmi", m: 45, r: 7, p: "79.4%"}, {n: "Sneha", m: 44, r: 8, p: "76.4%"},
+        {n: "Bhavna", m: 42, r: 9, p: "70.5%"}, {n: "Ravidra", m: 42, r: 9, p: "70.5%"},
+        {n: "Pukhraj", m: 40, r: 11, p: "67.6%"}, {n: "Arpita", m: 38, r: 12, p: "61.7%"},
+        {n: "Kamlesh Gadhveer", m: 38, r: 12, p: "61.7%"}, {n: "Satypal Vishnoi", m: 37, r: 14, p: "58.8%"},
+        {n: "Govind Suthar", m: 30, r: 15, p: "55.8%"}, {n: "Sapna", m: 28, r: 16, p: "52.9%"},
+        {n: "Natpat Siyol", m: 26, r: 17, p: "50.0%"}, {n: "Manisha", m: 25, r: 18, p: "47.0%"},
+        {n: "Lalchand", m: 23, r: 19, p: "44.1%"}, {n: "Vala Ram", m: 22, r: 20, p: "38.2%"},
+        {n: "Lekhraj", m: 22, r: 20, p: "38.2%"}, {n: "Sangeeta", m: 21, r: 22, p: "32.3%"},
+        {n: "Gaurav S", m: 21, r: 22, p: "32.3%"}, {n: "Imartee", m: 20, r: 24, p: "26.4%"},
+        {n: "Meenakshi", m: 20, r: 24, p: "26.4%"}, {n: "Thakra Ram", m: 17, r: 26, p: "20.5%"},
+        {n: "Anil Kumar", m: 17, r: 26, p: "20.5%"}, {n: "Prakash", m: 13, r: 28, p: "14.7%"},
+        {n: "Seema", m: 13, r: 28, p: "14.7%"}, {n: "Pooja", m: 12, r: 30, p: "11.7%"},
+        {n: "Suman", m: 11, r: 31, p: "8.8%"}, {n: "Archna", m: 10, r: 32, p: "5.8%"},
+        {n: "Roshan Khan", m: 7, r: 33, p: "2.9%"}, {n: "Amrit Suthar", m: 5, r: 34, p: "0.0%"}
+    ];
+
+    const tableBody = document.getElementById('tableBody');
+    const prizeWinners = document.getElementById('prizeWinners');
+
+    function renderTable(data) {
+        tableBody.innerHTML = '';
+        data.forEach(s => {
+            const isTopper = s.m >= 45;
+            const row = `<tr class="${isTopper ? 'topper-row' : ''}">
+                <td class="rank">#${s.r}</td>
+                <td>${s.n}</td>
+                <td>${s.m}</td>
+                <td>${s.p}</td>
+                <td class="${s.m >= 17 ? 'pass' : 'fail'}">${s.m >= 17 ? 'PASS' : 'REMEDIAL'}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Initialize Prize List
+    studentData.filter(s => s.m >= 45).forEach(s => {
+        prizeWinners.innerHTML += `<div class="topper-badge">🏅 ${s.n} (${s.m})</div>`;
+    });
+
+    // Search Logic
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase();
+        const filtered = studentData.filter(s => s.n.toLowerCase().includes(val));
+        renderTable(filtered);
+    });
+
+    // Initial Load
+    renderTable(studentData);
+</script>
+
+</body>
+</html>
+
