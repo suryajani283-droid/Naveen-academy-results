@@ -1,207 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAVEEN ACADEMY | Result Portal 2026</title>
+    <title>Multi-Subject Result Portal | Naveen Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1e3a8a;
-            --accent: #ef4444;
-            --gold: #f59e0b;
-            --success: #10b981;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        body {
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-            margin: 0;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* --- SEARCH BOX (MOBILE FRIENDLY) --- */
-        #search-container {
-            background: rgba(255, 255, 255, 0.95);
-            width: 90%;
-            max-width: 400px;
-            margin-top: 50px;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .school-logo { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
-        .sub-title { font-size: 13px; color: #666; letter-spacing: 2px; margin-bottom: 30px; }
-
-        .input-group { text-align: left; margin-bottom: 20px; }
-        label { font-size: 14px; font-weight: 600; color: #444; margin-left: 5px; }
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-top: 5px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 10px rgba(30,58,138,0.1); }
-
-        .btn-search {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(30,58,138,0.3);
-            transition: 0.3s;
-        }
-        .btn-search:hover { transform: translateY(-2px); background: #1a367c; }
-
-        /* --- COLORFUL CERTIFICATE --- */
-        #result-display { display: none; width: 95%; max-width: 800px; margin: 20px auto; }
+        :root { --board-blue: #003366; --board-gold: #b8860b; }
+        body { margin: 0; font-family: 'Roboto', sans-serif; background-color: #f4f7f6; display: flex; flex-direction: column; align-items: center; }
         
-        .certificate-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            border-top: 15px solid var(--primary);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
+        .top-bar { width: 100%; background: var(--board-blue); color: white; text-align: center; padding: 20px 10px; border-bottom: 4px solid var(--board-gold); }
+        .top-bar h1 { margin: 0; font-size: 22px; text-transform: uppercase; }
 
-        .cert-header { text-align: center; border-bottom: 2px solid #f0f0f0; margin-bottom: 20px; padding-bottom: 10px; }
-        .school-name { font-size: 24px; color: var(--primary); font-weight: 900; margin: 0; }
-        .exam-tag { 
-            background: #fff3f3; color: #c0392b; display: inline-block; 
-            padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 12px; margin-top: 10px;
-        }
+        .login-card { background: white; margin: 40px 10px; padding: 30px; width: 95%; max-width: 450px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+        .login-card h2 { text-align: center; color: var(--board-blue); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; font-size: 18px; }
+        
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; color: #555; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; box-sizing: border-box; }
+        
+        .btn-submit { width: 100%; background: var(--board-blue); color: white; border: none; padding: 14px; font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .btn-submit:hover { background: #002244; }
 
-        .student-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
-            margin: 20px 0; background: #f8fafc; padding: 15px; border-radius: 10px;
-        }
-        .meta-label { font-size: 11px; color: #888; text-transform: uppercase; font-weight: bold; }
-        .meta-value { font-size: 16px; color: #111; font-weight: 700; }
+        #result-section { display: none; width: 95%; max-width: 750px; margin: 30px 10px; }
+        .marksheet { background: white; padding: 40px; border: 2px solid #000; position: relative; }
+        .marksheet-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+        
+        .student-details { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #000; margin-bottom: 20px; }
+        .detail-item { padding: 10px; border: 0.5px solid #000; font-size: 14px; }
 
-        .marks-card { 
-            background: var(--primary); color: white; border-radius: 12px; padding: 20px; 
-            display: flex; justify-content: space-between; align-items: center; margin: 20px 0;
-        }
-        .score-big { font-size: 32px; font-weight: 800; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #000; padding: 12px; text-align: center; }
+        th { background: #f2f2f2; }
 
-        .stamp-box { text-align: center; margin-top: 25px; }
-        .status-badge { 
-            padding: 10px 40px; border-radius: 50px; font-size: 20px; font-weight: 800; 
-            display: inline-block; color: white; text-transform: uppercase; letter-spacing: 2px;
-        }
-        .pass-gradient { background: linear-gradient(to right, #10b981, #059669); }
-        .fail-gradient { background: linear-gradient(to right, #f87171, #ef4444); }
+        .status-box { margin-top: 25px; padding: 10px; border: 2px dashed #000; display: inline-block; font-weight: bold; }
+        .footer-sigs { margin-top: 60px; display: flex; justify-content: space-between; font-weight: bold; }
+        .blink { animation: blinker 1.5s linear infinite; color: #b8860b; font-weight: bold; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        #error { color: red; text-align: center; font-weight: bold; display: none; margin-top: 10px; }
 
-        .footer { display: flex; justify-content: space-around; margin-top: 40px; font-size: 14px; font-weight: bold; }
-        .sig { border-top: 2px solid #ddd; width: 120px; text-align: center; padding-top: 5px; }
-
-        /* --- MOBILE ADJUSTMENTS --- */
-        @media (max-width: 600px) {
-            .school-name { font-size: 18px; }
-            .student-grid { grid-template-columns: 1fr; gap: 10px; }
-            .certificate-card { padding: 15px; }
-            .score-big { font-size: 24px; }
-            .btn-action { width: 100%; margin-bottom: 10px; }
-        }
-
-        .no-print { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-        .btn-action { padding: 12px 25px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: white; }
-
-        @media print {
-            body { background: white; padding: 0; }
-            .no-print, #search-container { display: none !important; }
-            #result-display { display: block !important; margin: 0; width: 100%; }
-            .certificate-card { border: 2px solid #eee; box-shadow: none; }
-        }
+        @media (max-width: 600px) { .student-details { grid-template-columns: 1fr; } .marksheet { padding: 20px; } }
     </style>
 </head>
 <body>
 
-    <div id="search-container">
-        <div class="school-logo">NAVEEN ACADEMY</div>
-        <div class="sub-title">EXAM PORTAL 2026</div>
-        
-        <div class="input-group">
-            <label>Student Full Name</label>
-            <input type="text" id="nameInp" placeholder="Enter name">
-        </div>
-        
-        <div class="input-group">
-            <label>Roll Number (2601-2634)</label>
-            <input type="number" id="rollInp" placeholder="Enter roll no">
-        </div>
-
-        <button class="btn-search" onclick="checkResult()">VIEW MY RESULT</button>
-        <p id="error-msg" style="color:red; display:none; margin-top:15px; font-weight:bold;">Student Not Found!</p>
+    <div class="top-bar">
+        <h1>NAVEEN ACADEMY SR SEC SCHOOL, CHOHTAN</h1>
+        <p>INTEGRATED RESULT PORTAL - 2026</p>
     </div>
 
-    <div id="result-display">
-        <div class="certificate-card">
-            <div class="cert-header">
-                <p class="school-name">Naveen Academy Sr Sec School</p>
-                <p style="font-size:12px; margin:5px 0;">CHOHTAN, BARMER (RAJ.)</p>
-                <div class="exam-tag">MATHEMATICS MEGA TEST - FEB 2026</div>
+    <div class="login-card" id="login-card">
+        <h2>CHECK YOUR RESULT</h2>
+        <div class="input-group">
+            <label>Student Full Name</label>
+            <input type="text" id="nameInput" placeholder="e.g. Arpita or Ayush">
+        </div>
+        <div class="input-group">
+            <label>Select Subject</label>
+            <select id="subjectInput">
+                <option value="">-- Choose Subject --</option>
+                <option value="hindi">Hindi (Hindi Pre-Yearly)</option>
+                <option value="maths">Mathematics (Mega Test)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Select Class</label>
+            <select id="classInput">
+                <option value="9th">Class 9th</option>
+                <option value="10th">Class 10th</option>
+                </select>
+        </div>
+        <button class="btn-submit" onclick="showResult()">View Marksheet</button>
+        <p id="error">Data not found for this name in selected subject!</p>
+    </div>
+
+    <div id="result-section">
+        <div class="marksheet">
+            <div class="marksheet-header">
+                <h2 style="margin:0;">NAVEEN ACADEMY SR SEC SCHOOL</h2>
+                <p style="margin:5px 0; font-weight: bold;">CHOHTAN, BARMER (RAJ.)</p>
+                <h3 style="text-decoration: underline;">OFFICIAL MARKS STATEMENT</h3>
             </div>
 
-            <div class="student-grid">
-                <div><span class="meta-label">Candidate</span><div class="meta-value" id="res-name"></div></div>
-                <div><span class="meta-label">Roll No</span><div class="meta-value" id="res-roll"></div></div>
-                <div><span class="meta-label">Class</span><div class="meta-value">9th Standard</div></div>
-                <div><span class="meta-label">Date</span><div class="meta-value">18/02/2026</div></div>
+            <div class="student-details">
+                <div class="detail-item"><strong>NAME:</strong> <span id="dispName"></span></div>
+                <div class="detail-item"><strong>CLASS:</strong> <span id="dispClass"></span></div>
+                <div class="detail-item"><strong>SUBJECT:</strong> <span id="dispSub"></span></div>
+                <div class="detail-item"><strong>DATE:</strong> <span id="dispDate"></span></div>
             </div>
 
-            <div class="marks-card">
-                <div>
-                    <div style="font-size:12px; opacity:0.8; text-transform:uppercase;">Subject Name</div>
-                    <div style="font-size:18px; font-weight:bold;">Mathematics</div>
-                </div>
-                <div style="text-align:right;">
-                    <div style="font-size:12px; opacity:0.8;">MARKS OBTAINED</div>
-                    <div class="score-big"><span id="res-marks"></span> / 50</div>
-                </div>
+            <div id="normal-area">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SUBJECT NAME</th>
+                            <th>MAX MARKS</th>
+                            <th>OBTAINED MARKS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="tableSub"></td>
+                            <td id="maxMarks">100</td>
+                            <td id="dispMarks" style="font-weight: bold; font-size: 20px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <center><div class="status-box">RESULT: <span style="color:green;">PASSED</span></div></center>
             </div>
 
-            <div style="text-align:center; margin:15px 0;">
-                <span class="meta-label">Percentile:</span> <span id="res-perc" style="font-weight:bold; color:var(--primary)"></span>
+            <div id="hold-area" style="display:none; text-align:center; padding: 40px 0;">
+                <h2 class="blink">RESULT ON HOLD / COMING SOON</h2>
+                <p>Wait for 24 hours or contact school office.</p>
             </div>
 
-            <div class="stamp-box">
-                <div id="res-stamp" class="status-badge"></div>
-            </div>
-
-            <div class="footer">
-                <div class="sig">Subject Teacher</div>
-                <div class="sig">Principal</div>
+            <div class="footer-sigs">
+                <div>Class Teacher</div>
+                <div>Principal</div>
             </div>
         </div>
-
-        <div class="no-print">
-            <button class="btn-action" style="background:#6b7280;" onclick="location.reload()">BACK</button>
-            <button class="btn-action" style="background:var(--primary);" onclick="window.print()">DOWNLOAD PDF</button>
-        </div>
+        <center>
+            <button class="btn-submit" style="background:#555; width:120px; margin-top:20px;" onclick="location.reload()">Back</button>
+            <button class="btn-submit" style="background:var(--board-blue); width:120px; margin-top:20px;" onclick="window.print()">Print</button>
+        </center>
     </div>
 
     <script>
-        const students = [
+        const hindiDB = {
+            "arpita": { name: "ARPITA", marks: "91", max: "100", status: "ok", date: "19/02/2026" },
+            "monika": { name: "MONIKA", marks: "90.5", max: "100", status: "ok", date: "19/02/2026" },
+            "sneha": { name: "SNEHA", marks: "--", max: "100", status: "hold", date: "19/02/2026" }
+        };
+
+        const mathsDB = [
             {n: "Ayush Vishnoi", r: 2601, m: 49, p: "97.0%"}, {n: "Gajra", r: 2602, m: 49, p: "97.0%"},
             {n: "Harish", r: 2603, m: 48, p: "91.1%"}, {n: "Deepika", r: 2604, m: 48, p: "91.1%"},
             {n: "Pramila", r: 2605, m: 46, p: "85.2%"}, {n: "Monika", r: 2606, m: 46, p: "85.2%"},
@@ -221,29 +152,44 @@
             {n: "Roshan Khan", r: 2633, m: 7, p: "2.9%"}, {n: "Amrit Suthar", r: 2634, m: 5, p: "0.0%"}
         ];
 
-        function checkResult() {
-            const name = document.getElementById('nameInp').value.trim().toLowerCase();
-            const roll = document.getElementById('rollInp').value;
-            const found = students.find(s => s.n.toLowerCase() === name || s.r.toString() === roll);
+        function showResult() {
+            const name = document.getElementById('nameInput').value.trim().toLowerCase();
+            const sub = document.getElementById('subjectInput').value;
+            const cls = document.getElementById('classInput').value;
+            const error = document.getElementById('error');
 
-            if (found) {
-                document.getElementById('search-container').style.display = 'none';
-                document.getElementById('result-display').style.display = 'block';
-                document.getElementById('res-name').innerText = found.n;
-                document.getElementById('res-roll').innerText = found.r;
-                document.getElementById('res-marks').innerText = found.m;
-                document.getElementById('res-perc').innerText = found.p;
+            if (!name || !sub) { alert("Please enter Name and Subject"); return; }
+
+            let foundData = null;
+            if (sub === "hindi") {
+                foundData = hindiDB[name] ? { ...hindiDB[name], type: "HINDI", d: hindiDB[name].date } : null;
+            } else {
+                let s = mathsDB.find(st => st.n.toLowerCase() === name);
+                foundData = s ? { name: s.n, marks: s.m, max: "50", status: "ok", type: "MATHEMATICS", d: "18/02/2026" } : null;
+            }
+
+            if (foundData) {
+                error.style.display = 'none';
+                document.getElementById('login-card').style.display = 'none';
+                document.getElementById('result-section').style.display = 'block';
                 
-                const stamp = document.getElementById('res-stamp');
-                if(found.m >= 17) {
-                    stamp.innerText = "PASSED";
-                    stamp.className = "status-badge pass-gradient";
+                document.getElementById('dispName').innerText = foundData.name;
+                document.getElementById('dispClass').innerText = cls;
+                document.getElementById('dispSub').innerText = foundData.type;
+                document.getElementById('dispDate').innerText = foundData.d;
+
+                if (foundData.status === "hold") {
+                    document.getElementById('normal-area').style.display = 'none';
+                    document.getElementById('hold-area').style.display = 'block';
                 } else {
-                    stamp.innerText = "REMEDIAL";
-                    stamp.className = "status-badge fail-gradient";
+                    document.getElementById('normal-area').style.display = 'block';
+                    document.getElementById('hold-area').style.display = 'none';
+                    document.getElementById('tableSub').innerText = foundData.type;
+                    document.getElementById('maxMarks').innerText = foundData.max;
+                    document.getElementById('dispMarks').innerText = foundData.marks;
                 }
             } else {
-                document.getElementById('error-msg').style.display = 'block';
+                error.style.display = 'block';
             }
         }
     </script>
