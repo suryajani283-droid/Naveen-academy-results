@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Subject Result Portal | Naveen Academy</title>
+    <title>Integrated Result Portal | Naveen Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --board-blue: #003366; --board-gold: #b8860b; }
@@ -34,7 +34,13 @@
         th { background: #f2f2f2; }
 
         .status-box { margin-top: 25px; padding: 10px; border: 2px dashed #000; display: inline-block; font-weight: bold; }
-        .footer-sigs { margin-top: 60px; display: flex; justify-content: space-between; font-weight: bold; }
+        
+        /* SCANNED COPY STYLE */
+        #scanned-copy-section { margin-top: 20px; border-top: 1px dashed #777; padding-top: 20px; text-align: center; }
+        .btn-scan { background: #e67e22; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; display: inline-block; }
+        .btn-wa { background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px; }
+
+        .footer-sigs { margin-top: 60px; display: flex; justify-content: space-around; font-weight: bold; }
         .blink { animation: blinker 1.5s linear infinite; color: #b8860b; font-weight: bold; }
         @keyframes blinker { 50% { opacity: 0; } }
         #error { color: red; text-align: center; font-weight: bold; display: none; margin-top: 10px; }
@@ -59,7 +65,7 @@
             <label>Select Subject</label>
             <select id="subjectInput">
                 <option value="">-- Choose Subject --</option>
-                <option value="hindi">Hindi (Hindi Pre-Yearly)</option>
+                <option value="hindi">Hindi (Hindi Pre-YearLY)</option>
                 <option value="maths">Mathematics (Mega Test)</option>
             </select>
         </div>
@@ -68,7 +74,7 @@
             <select id="classInput">
                 <option value="9th">Class 9th</option>
                 <option value="10th">Class 10th</option>
-                </select>
+            </select>
         </div>
         <button class="btn-submit" onclick="showResult()">View Marksheet</button>
         <p id="error">Data not found for this name in selected subject!</p>
@@ -114,8 +120,18 @@
                 <p>Wait for 24 hours or contact school office.</p>
             </div>
 
+            <div id="scanned-copy-section" style="display:none;">
+                <div id="request-ui">
+                    <button class="btn-scan" onclick="processScan()">📄 Request Scanned Copy</button>
+                </div>
+                <div id="share-ui" style="display:none;">
+                    <p style="color:green; font-weight:bold;">Request Approved!</p>
+                    <a id="waLink" href="#" target="_blank" class="btn-wa">📲 Share on WhatsApp</a>
+                </div>
+            </div>
+
             <div class="footer-sigs">
-                <div>Class Teacher</div>
+                <div>Subject Teacher</div>
                 <div>Principal</div>
             </div>
         </div>
@@ -133,23 +149,11 @@
         };
 
         const mathsDB = [
-            {n: "Ayush Vishnoi", r: 2601, m: 49, p: "97.0%"}, {n: "Gajra", r: 2602, m: 49, p: "97.0%"},
-            {n: "Harish", r: 2603, m: 48, p: "91.1%"}, {n: "Deepika", r: 2604, m: 48, p: "91.1%"},
-            {n: "Pramila", r: 2605, m: 46, p: "85.2%"}, {n: "Monika", r: 2606, m: 46, p: "85.2%"},
-            {n: "Laxmi", r: 2607, m: 45, p: "79.4%"}, {n: "Sneha", r: 2608, m: 44, p: "76.4%"},
-            {n: "Bhavna", r: 2609, m: 42, p: "70.5%"}, {n: "Ravidra", r: 2610, m: 42, p: "70.5%"},
-            {n: "Pukhraj", r: 2611, m: 40, p: "67.6%"}, {n: "Arpita", r: 2612, m: 38, p: "61.7%"},
-            {n: "Kamlesh Gadhveer", r: 2613, m: 38, p: "61.7%"}, {n: "Satypal Vishnoi", r: 2614, m: 37, p: "58.8%"},
-            {n: "Govind Suthar", r: 2615, m: 30, p: "55.8%"}, {n: "Sapna", r: 2616, m: 28, p: "52.9%"},
-            {n: "Narpat Siyol", r: 2617, m: 26, p: "50.0%"}, {n: "Manisha", r: 2618, m: 25, p: "47.0%"},
-            {n: "Lalchand", r: 2619, m: 23, p: "44.1%"}, {n: "Vala Ram", r: 2620, m: 22, p: "38.2%"},
-            {n: "Lekhraj", r: 2621, m: 22, p: "38.2%"}, {n: "Sangeeta", r: 2622, m: 21, p: "32.3%"},
-            {n: "Gaurav S", r: 2623, m: 21, p: "32.3%"}, {n: "Imartee", r: 2624, m: 20, p: "26.4%"},
-            {n: "Meenakshi", r: 2625, m: 20, p: "26.4%"}, {n: "Thakra Ram", r: 2626, m: 17, p: "20.5%"},
-            {n: "Anil Kumar", r: 2627, m: 17, p: "20.5%"}, {n: "Prakash", r: 2628, m: 13, p: "14.7%"},
-            {n: "Seema", r: 2629, m: 13, p: "14.7%"}, {n: "Pooja", r: 2630, m: 12, p: "11.7%"},
-            {n: "Suman", r: 2631, m: 11, p: "8.8%"}, {n: "Archna", r: 2632, m: 10, p: "5.8%"},
-            {n: "Roshan Khan", r: 2633, m: 7, p: "2.9%"}, {n: "Amrit Suthar", r: 2634, m: 5, p: "0.0%"}
+            {n: "Ayush Vishnoi", m: 49}, {n: "Gajra", m: 49},
+            {n: "Harish", m: 48}, {n: "Deepika", m: 48},
+            {n: "Pramila", m: 46}, {n: "Monika", m: 46},
+            {n: "Laxmi", m: 45}, {n: "Sneha", m: 44},
+            {n: "Arpita", m: 38}
         ];
 
         function showResult() {
@@ -158,21 +162,20 @@
             const cls = document.getElementById('classInput').value;
             const error = document.getElementById('error');
 
-            if (!name || !sub) { alert("Please enter Name and Subject"); return; }
-
             let foundData = null;
             if (sub === "hindi") {
                 foundData = hindiDB[name] ? { ...hindiDB[name], type: "HINDI", d: hindiDB[name].date } : null;
+                if(foundData) document.getElementById('scanned-copy-section').style.display = 'block';
             } else {
                 let s = mathsDB.find(st => st.n.toLowerCase() === name);
                 foundData = s ? { name: s.n, marks: s.m, max: "50", status: "ok", type: "MATHEMATICS", d: "18/02/2026" } : null;
+                document.getElementById('scanned-copy-section').style.display = 'none';
             }
 
             if (foundData) {
                 error.style.display = 'none';
                 document.getElementById('login-card').style.display = 'none';
                 document.getElementById('result-section').style.display = 'block';
-                
                 document.getElementById('dispName').innerText = foundData.name;
                 document.getElementById('dispClass').innerText = cls;
                 document.getElementById('dispSub').innerText = foundData.type;
@@ -181,6 +184,7 @@
                 if (foundData.status === "hold") {
                     document.getElementById('normal-area').style.display = 'none';
                     document.getElementById('hold-area').style.display = 'block';
+                    document.getElementById('scanned-copy-section').style.display = 'none';
                 } else {
                     document.getElementById('normal-area').style.display = 'block';
                     document.getElementById('hold-area').style.display = 'none';
@@ -191,6 +195,23 @@
             } else {
                 error.style.display = 'block';
             }
+        }
+
+        function processScan() {
+            const btn = document.querySelector('.btn-scan');
+            btn.innerText = "Checking Records...";
+            setTimeout(() => {
+                document.getElementById('request-ui').style.display = 'none';
+                document.getElementById('share-ui').style.display = 'block';
+                
+                const studentName = document.getElementById('dispName').innerText;
+                const subjectName = document.getElementById('dispSub').innerText;
+                const myNumber = "917665949564"; 
+                
+                const msg = `Namaste Sir, Main ${studentName} hoon. Mujhe mere ${subjectName} paper ki scanned answer sheet chahiye.`;
+                
+                document.getElementById('waLink').href = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(msg)}`;
+            }, 1200);
         }
     </script>
 </body>
