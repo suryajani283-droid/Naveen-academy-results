@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Integrated Result Portal | Naveen Academy</title>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>Official Result Portal | Naveen Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --board-blue: #003366; --board-gold: #b8860b; }
@@ -35,7 +40,6 @@
 
         .status-box { margin-top: 25px; padding: 10px; border: 2px dashed #000; display: inline-block; font-weight: bold; }
         
-        /* SCANNED COPY STYLE */
         #scanned-copy-section { margin-top: 20px; border-top: 1px dashed #777; padding-top: 20px; text-align: center; }
         .btn-scan { background: #e67e22; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; display: inline-block; }
         .btn-wa { background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px; }
@@ -52,32 +56,31 @@
 
     <div class="top-bar">
         <h1>NAVEEN ACADEMY SR SEC SCHOOL, CHOHTAN</h1>
-        <p>INTEGRATED RESULT PORTAL - 2026</p>
+        <p>ANNUAL RESULT PORTAL - 2026</p>
     </div>
 
     <div class="login-card" id="login-card">
-        <h2>CHECK YOUR RESULT</h2>
+        <h2>CHECK YOUR MARKSHEET</h2>
         <div class="input-group">
-            <label>Student Full Name</label>
-            <input type="text" id="nameInput" placeholder="e.g. Arpita or Ayush">
+            <label>विद्यार्थी का नाम</label>
+            <input type="text" id="nameInput" placeholder="उदा. Arpita">
         </div>
         <div class="input-group">
-            <label>Select Subject</label>
+            <label>विषय (Subject)</label>
             <select id="subjectInput">
-                <option value="">-- Choose Subject --</option>
-                <option value="hindi">Hindi (Hindi Pre-YearLY)</option>
+                <option value="">-- विषय चुनें --</option>
+                <option value="hindi">Hindi (Hindi Pre-Yearly)</option>
                 <option value="maths">Mathematics (Mega Test)</option>
             </select>
         </div>
         <div class="input-group">
-            <label>Select Class</label>
+            <label>कक्षा (Class)</label>
             <select id="classInput">
                 <option value="9th">Class 9th</option>
-                <option value="10th">Class 10th</option>
             </select>
         </div>
-        <button class="btn-submit" onclick="showResult()">View Marksheet</button>
-        <p id="error">Data not found for this name in selected subject!</p>
+        <button class="btn-submit" onclick="showResult()">रिजल्ट देखें</button>
+        <p id="error">रिकॉर्ड नहीं मिला! नाम सही लिखें।</p>
     </div>
 
     <div id="result-section">
@@ -149,11 +152,9 @@
         };
 
         const mathsDB = [
-            {n: "Ayush Vishnoi", m: 49}, {n: "Gajra", m: 49},
-            {n: "Harish", m: 48}, {n: "Deepika", m: 48},
-            {n: "Pramila", m: 46}, {n: "Monika", m: 46},
-            {n: "Laxmi", m: 45}, {n: "Sneha", m: 44},
-            {n: "Arpita", m: 38}
+            {n: "Ayush Vishnoi", m: 49}, {n: "Gajra", m: 49}, {n: "Harish", m: 48}, 
+            {n: "Deepika", m: 48}, {n: "Pramila", m: 46}, {n: "Monika", m: 46}, 
+            {n: "Laxmi", m: 45}, {n: "Sneha", m: 44}, {n: "Arpita", m: 38}
         ];
 
         function showResult() {
